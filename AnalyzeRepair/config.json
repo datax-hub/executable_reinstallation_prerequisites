@@ -1,0 +1,151 @@
+{
+  "_comentario": "Configuracion de AnalyzeRepair. ProductCode y version verificados leyendo la tabla Property de cada MSI (WindowsInstaller.Installer COM), no copiados del documento.",
+  "version_config": 1,
+
+  "servicio": {
+    "nombre": "Datax.Analyze.service",
+    "timeout_detener_segundos": 60,
+    "timeout_iniciar_segundos": 90,
+    "si_no_existe": "advertir"
+  },
+
+  "version_base": 110,
+
+  "raices_componentes": [
+    "{ProgramFiles}/Microsoft Analysis Services/AS OLEDB",
+    "{ProgramFiles}/Microsoft.NET/ADOMD.NET",
+    "{ProgramFilesX86}/Microsoft Analysis Services/AS OLEDB",
+    "{ProgramFilesX86}/Microsoft.NET/ADOMD.NET"
+  ],
+
+  "exclusiones_absolutas": [
+    {
+      "producto": "Microsoft ADOMD.NET 8.0",
+      "product_code": "{4877FB90-721E-49F3-8E89-9467CBA3686B}",
+      "carpeta_version": 80,
+      "nunca_desinstalar": true,
+      "nunca_instalar": true,
+      "motivo": "RF-04 del requerimiento + confirmacion explicita del responsable: componente sensible. Producto DISTINTO de 'Microsoft SQL Server 2012 ADOMD.NET'. Su instalador esta fuera de Prerequisites/ (ver _no-usar/)."
+    }
+  ],
+
+  "componentes": [
+    {
+      "id": "msxml6",
+      "orden": 1,
+      "archivo": "msxml6_x86.msi",
+      "tipo": "msi",
+      "producto": "MSXML 6.0 Parser",
+      "product_code": "{A43BF6A5-D5F0-4AAA-BF41-65995063EC44}",
+      "version_esperada": "6.10.1129.0",
+      "arquitectura": "any",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true
+    },
+    {
+      "id": "owc11",
+      "orden": 2,
+      "archivo": "owc11.msi",
+      "tipo": "msi",
+      "producto": "Microsoft Office 2003 Web Components",
+      "product_code": "{90120000-00A4-0C0A-0000-0000000FF1CE}",
+      "version_esperada": "12.0.4518.1014",
+      "arquitectura": "any",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true,
+      "nota": "ProductCode con segmento 0C0A = idioma 3082 (espanol). Es el paquete localizado."
+    },
+    {
+      "id": "as_oledb_x86",
+      "orden": 3,
+      "archivo": "SQL_AS_OLEDBx86.msi",
+      "tipo": "msi",
+      "producto": "Microsoft AS OLE DB Provider for SQL Server 2012",
+      "product_code": "{24AEC213-B7FC-46CB-9ACF-505C9C907757}",
+      "version_esperada": "11.4.7001.0",
+      "arquitectura": "x86",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true
+    },
+    {
+      "id": "as_oledb_x64",
+      "orden": 4,
+      "archivo": "SQL_AS_OLEDBx64.msi",
+      "tipo": "msi",
+      "producto": "Microsoft AS OLE DB Provider for SQL Server 2012",
+      "product_code": "{2E333525-6784-4819-BE44-5A2794012B17}",
+      "version_esperada": "11.4.7001.0",
+      "arquitectura": "x64",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true
+    },
+    {
+      "id": "as_adomd_x86",
+      "orden": 5,
+      "archivo": "SQL_AS_ADOMDx86.msi",
+      "tipo": "msi",
+      "producto": "Microsoft SQL Server 2012 ADOMD.NET",
+      "product_code": "{69ED3C12-58E2-4447-964F-D6C6EEAE176D}",
+      "version_esperada": "11.4.7001.0",
+      "arquitectura": "x86",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true
+    },
+    {
+      "id": "as_adomd_x64",
+      "orden": 6,
+      "archivo": "SQL_AS_ADOMDx64.msi",
+      "tipo": "msi",
+      "producto": "Microsoft SQL Server 2012 ADOMD.NET",
+      "product_code": "{017C234E-38C6-4A64-88EF-2C2A7D71FEED}",
+      "version_esperada": "11.4.7001.0",
+      "arquitectura": "x64",
+      "desinstalar": true,
+      "instalar": true,
+      "habilitado": true
+    },
+    {
+      "id": "ptslite",
+      "orden": 7,
+      "archivo": "ptslite.exe",
+      "tipo": "exe",
+      "producto": null,
+      "product_code": null,
+      "version_esperada": null,
+      "arquitectura": "x86",
+      "desinstalar": false,
+      "instalar": true,
+      "habilitado": false,
+      "args_instalacion": [],
+      "nota": "PENDIENTE. Stub InstallShield (OriginalFilename=stub32i.exe), sin metadata de version ni ProductCode. Sus switches silenciosos deben descubrirse empiricamente en VM antes de habilitarlo. RF-04 dice 'segun procedimiento definido' y ese procedimiento no existe en el requerimiento."
+    }
+  ],
+
+  "msiexec": {
+    "args_instalacion": ["/qn", "/norestart"],
+    "args_desinstalacion": ["/qn", "/norestart"],
+    "log_verboso": true,
+    "timeout_segundos": 900,
+    "codigos_exito": [0],
+    "codigos_exito_con_reinicio": [3010, 1641],
+    "codigos_no_instalado": [1605]
+  },
+
+  "limpieza": {
+    "reintentos_archivo_bloqueado": 3,
+    "espera_entre_reintentos_segundos": 2,
+    "programar_borrado_al_reiniciar": true
+  },
+
+  "log": {
+    "carpeta": "logs",
+    "nivel_consola": "INFO",
+    "nivel_archivo": "DEBUG",
+    "conservar_ultimos": 30
+  }
+}

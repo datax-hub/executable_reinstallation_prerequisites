@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Artefactos de compilacion.
+# El EXE se distribuye como Release de GitHub, no dentro del repositorio:
+# AnalyzeRepair_TodoEnUno.exe pesa ~123 MB y supera el limite de 100 MB por
+# archivo de GitHub.
+dist/
+**/build/work/
+**/build/work2/
+*.pkg
+*.pyz
+*.toc
+AnalyzeRepair/AnalyzeRepair.exe
+
+# Ejecucion
+logs/
+*.log
+
+# Restos de abrir/inspeccionar los .docx
+temp_docx/
+temp.docx.zip
+
+# Windows / OneDrive
+Thumbs.db
+desktop.ini
